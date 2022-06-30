@@ -6,9 +6,11 @@ var express = require('express'); // Express web server framework
  var cookieParser = require('cookie-parser');
  const path = require('path');
  const ColorThief = require('colorthief');
+const { read } = require('fs');
 
 var router = express.Router();
 
+router.use(express.urlencoded({extended:true}));
 
  var client_id = '9ddc7e09db6d4babb7d05f4d573fbf9b'; // Your client id
  var client_secret = '784b3df20acb4a70a329f370ac2cf69c'; // Your secret
@@ -33,7 +35,7 @@ var router = express.Router();
  
  var stateKey = 'spotify_auth_state';
  
- router.use(express.static(path.join(__dirname, 'public')))
+ router.use(express.static(path.join(__dirname, '..', 'public')))
     .use(cors())
     .use(cookieParser());
  
@@ -149,7 +151,7 @@ var router = express.Router();
  });
 
 
- router.get('/playlist/:uri/:token', function(req, res){
+ router.get('/album/:uri/:token', function(req, res){
   const {uri, token} = req.params;
   // console.log(token);
   // console.log(uri);
@@ -285,10 +287,322 @@ var router = express.Router();
 })
 })
 
+
+
+router.get('/playlist/:uri/:token', function(req, res){
+  const {uri, token} = req.params;
+  // console.log(token);
+  // console.log(uri);
+  const id = uri.split(':')[2];
+  
+  var options = {
+    url: 'https://api.spotify.com/v1/playlists/'+id+'?limit=200',
+    headers: { 'Authorization': 'Bearer ' + token },
+    json: true
+  };
+  
+  request.get(options, function(error, response, body) {
+    // console.log(body);
+    
+    let tracks_arr = [];
+    for(let temp_tr of body.tracks.items){
+      // console.log(temp_tr);
+      let arr1 = [];
+      if(temp_tr.track != null){
+        for(let obj of temp_tr.track.artists){
+          arr1.push(obj.name);
+        }
+      
+      let str1 = arr1.join(', ');
+      
+      const ob = {
+        track_name: temp_tr.track.name,
+        track_artist: str1,
+        duration: millisToMinutesAndSeconds(temp_tr.track.duration_ms),
+        // track_num: temp_tr.track_number,
+        uri: temp_tr.track.uri,
+        track_album: temp_tr.track.album.name,
+      }
+      tracks_arr.push(ob);
+    }
+    }
+
+    ColorThief.getColor(body.images[0].url)
+    .then(color => { 
+      const color_rgb = {
+        red: color.toString().split(',')[0],
+        green: color.toString().split(',')[1],
+        blue: color.toString().split(',')[2],
+      }
+
+      const obj = {
+        img: body.images[0].url,
+        name: body.name,
+        des: body.description,
+        // num: body.total_tracks,
+        color: color_rgb,
+        tracks: tracks_arr,
+      }
+  
+    // console.log(obj.tracks[0]);
+    res.send(obj);
+    })
+    .catch(err => { console.log(err) })
+  })
+})
+
+
+// ---------------------For liked Page---------------------
+router.get('/liked/:token', function(req, res){
+  const {token} = req.params;
+  // console.log(token);
+  // console.log(uri);
+  // const id = uri.split(':')[2];
+  
+  var options = {
+    url: 'https://api.spotify.com/v1/me/tracks?limit=50',
+    headers: { 'Authorization': 'Bearer ' + token },
+    json: true
+  };
+  
+  request.get(options, function(error, response, body) {
+    // console.log(body.items[0].track.name);
+    // console.log(body.items[0].track.artists[0].name);
+    
+    let tracks_arr = [];
+    for(let temp_tr of body.items){
+      // console.log(temp_tr);
+      let arr1 = [];
+      if(temp_tr.track != null){
+        for(let obj of temp_tr.track.artists){
+          arr1.push(obj.name);
+        }
+      
+      let str1 = arr1.join(', ');
+      
+      const ob = {
+        track_name: temp_tr.track.name,
+        track_artist: str1,
+        duration: millisToMinutesAndSeconds(temp_tr.track.duration_ms),
+        // track_num: temp_tr.track_number,
+        uri: temp_tr.track.uri,
+        track_album: temp_tr.track.album.name,
+      }
+      tracks_arr.push(ob);
+    }
+    }
+
+    ColorThief.getColor(path.join(__dirname, '..', 'public', 'liked_big.png'))
+    .then(color => { 
+      const color_rgb = {
+        red: color.toString().split(',')[0],
+        green: color.toString().split(',')[1],
+        blue: color.toString().split(',')[2],
+      }
+
+      const obj = {
+        color: color_rgb,
+        tracks: tracks_arr,
+      }
+  
+      // console.log(obj);
+    res.send(obj);
+    })
+    .catch(err => { console.log(err) })
+  })
+})
+
+
+router.get('/liked_list/:token', function(req, res){
+  const {token} = req.params;
+  // console.log(token);
+  // console.log(uri);
+  // const id = uri.split(':')[2];
+  
+  var options = {
+    url: 'https://api.spotify.com/v1/me/tracks?limit=50',
+    headers: { 'Authorization': 'Bearer ' + token },
+    json: true
+  };
+  
+  request.get(options, function(error, response, body) {
+    // console.log(body.items[0].track.name);
+    // console.log(body.items[0].track.artists[0].name);
+
+    let arr = [];
+    for(let obj of body.items){
+      const object = {
+        name: obj.track.name,
+        artist: obj.track.artists[0].name,
+      }
+      arr.push(object);
+    }
+
+    res.send({arr});
+  })
+})
+
+// ---------------------For lib Page---------------------
+router.get('/lib/:token', function(req, res){
+  const {token} = req.params;
+  // console.log(token);
+  // console.log(uri);
+  // const id = uri.split(':')[2];
+  
+  var opt = {
+    url: 'https://api.spotify.com/v1/me',
+    headers: { 'Authorization': 'Bearer ' + token },
+    json: true
+  };
+
+  request.get(opt, function(error, response, body) {
+    let user_id = body.id;
+
+  var options = {
+    url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists?limit=30',
+    headers: { 'Authorization': 'Bearer ' + token },
+    json: true
+  };
+  
+  request.get(options, function(error, response, body) {
+    // console.log(body);
+    
+    let playlist_arr = [];
+    for(let temp_play of body.items){
+      // console.log(temp_play); 
+      const ob = {
+        name: temp_play.name,
+        uri: temp_play.uri,
+        des: temp_play.description,
+        image: temp_play.images[0].url,
+      }
+      playlist_arr.push(ob);
+    }
+
+      const obj = {
+        playlists: playlist_arr,
+      }
+  
+      // console.log(obj);
+    res.send(obj);
+  })
+})
+})
+
+
+
+// --------------------------Request for search------------
+router.get('/search/:token/:value', function(req, res){
+  const {token,value} = req.params;
+  //const {search} = req.body;
+  // console.log(search);
+
+  var options = {
+    url: `https://api.spotify.com/v1/search?&q=${value}&type=track,album,artist,playlist`,
+    headers: { 'Authorization': 'Bearer ' + token },
+    json: true
+  };
+  
+  request.get(options, function(error, response, body) {
+     
+    //res.send(body);
+    // console.log(body);
+    // adding search tracks
+    let tracks_arr = [];
+    for(let temp_tr of body.tracks.items){
+       //console.log(temp_tr);
+      let arr1 = [];
+      if(temp_tr.artists != null){
+        for(let obj of temp_tr.artists){
+          arr1.push(obj.name);
+        }
+      
+      let str1 = arr1.join(', ');
+      
+      const ob = {
+        track_name: temp_tr.name,
+        track_artist: str1,
+        duration: millisToMinutesAndSeconds(temp_tr.duration_ms),
+        // track_num: temp_tr.track_number,
+        uri: temp_tr.uri,
+        track_image : temp_tr.album.images[0],
+        track_album: temp_tr.album.name,
+      }
+      // console.log('hey');
+      tracks_arr.push(ob);
+    }
+    }
+    //res.send(tracks_arr);
+    // adding search artists
+    let artist_ar = [];
+    for(let temp_ar of body.artists.items){
+      // console.log(temp_tr);
+     
+      const ob = {
+        artist_name: temp_ar.name,
+        artist_image: temp_ar.images[0],
+        uri: temp_ar.uri,
+        
+      }
+      artist_ar.push(ob);
+    }
+
+    let album_ar = [];
+    for(let temp_ar of body.albums.items){
+      // console.log(temp_tr);
+      let arr1 = [];
+      if(temp_ar.artists != null){
+        for(let obj of temp_ar.artists){
+          arr1.push(obj.name);
+        }
+      
+      let str1 = arr1.join(', ');
+      const ob = {
+
+        album_name: temp_ar.name,
+        albums_artists : str1,
+        album_image: temp_ar.images[0],
+        uri: temp_ar.uri,
+        
+      }
+      album_ar.push(ob);
+    }
+  }
+  let playlist_ar = [];
+  for(let temp_ar of body.playlists.items){
+    // console.log(temp_tr);
+   
+    const ob = {
+
+      playlist_name: temp_ar.name,
+      playlist_desc : temp_ar.description,
+      playlist_image: temp_ar.images[0],
+      uri: temp_ar.uri,
+      
+    }
+    playlist_ar.push(ob);
+  }
+  
+    const obj = {
+      tracks : tracks_arr,
+      artist : artist_ar,
+      album : album_ar,
+      playlist : playlist_ar,
+    }
+
+    res.send(obj);
+  })
+  
+})
+
+
+//----------------end-----------------------
+
+
 function millisToMinutesAndSeconds(millis) {
   var minutes = Math.floor(millis / 60000);
   var seconds = ((millis % 60000) / 1000).toFixed(0);
   return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 }
 
- module.exports = router;
+module.exports = router;

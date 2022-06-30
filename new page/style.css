@@ -4,19 +4,17 @@
     font-family: roboto;
 }
 
-body{
-    background-color: #121212;
-}
 
 #background{
     /* border: 2px solid white; */
-    margin-left: 216px;
-    width: calc(100% - 216px);
+    width: 100%;
     height: 550px;
     /* height: 400px; */
     position: absolute;
+    /* left: 216px; */
+    top: 0px;
     box-sizing: border-box;
-    background-image: linear-gradient(rgba(192,27,20, 0.7), 50%, #121212);
+    /* background-image: linear-gradient(rgba(192,27,20, 0.7), 50%, #121212); */
     z-index: -1;
     opacity: 1;
 }
@@ -34,6 +32,7 @@ body{
 #list{
     /* height: 1000px; */
     /* border: 2px solid white; */
+    min-height: 300px;
     padding-top: 40px;
     box-sizing: border-box;
     background-color: rgb(18, 18, 18, 0.3);
@@ -44,6 +43,8 @@ body{
     position: absolute;
     bottom: 0px;
     left: 0px;
+    border-radius: 4px;
+    box-shadow: 0px 6px 25px 0.2px rgb(0, 0, 0);
 }
 
 #album{
@@ -60,7 +61,7 @@ body{
     position: absolute;
     visibility: hidden;
     /* top: 20%; */
-    bottom: 35px;
+    bottom: 0px;
     /* border: 2px solid white; */
     box-sizing: border-box;
 }
@@ -71,6 +72,11 @@ body{
     position: absolute; 
 }
 
+#small_play{
+    height: 13px;
+    /* display: none; */
+}
+
 #small_det{
     /* border: 1px solid orange; */
     position: relative;
@@ -79,13 +85,22 @@ body{
 #album_det{
     color: white;
     display: inline-block;
-    position: absolute;
+    /* position: absolute; */
     top: 6px;
     left: 30px;
     font-size: 0.8rem;
 }
 
-#muted{
+#playlist_des{
+    color: rgb(178, 172, 172);
+    display: inline-block;
+    /* position: absolute; */
+    top: 6px;
+    left: 30px;
+    font-size: 0.8rem;
+}
+
+.muted{
     color: rgb(178, 172, 172);
 }
 
@@ -103,7 +118,7 @@ body{
 }
 
 #nu{
-    width: 45px;
+    width: 6%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -112,27 +127,37 @@ body{
     /* border: 2px solid white; */
 }
 #tit{
-    width: 65%;
+    /* width: 60%; */
+    width: 75%;
     height: 100%;
     display: flex;
     align-items: center;
     font-size: 0.8rem;
+    /* margin-right: 10px; */
     /* border: 2px solid white; */
 }
-#plays{
-    width: 14%;
+#alb{
+    width: 22%;
     height: 100%;
     display: flex;
-    justify-content: end;
+    justify-content: start;
     align-items: center;
     font-size: 0.8rem;
+    padding-right: 10px;
     /* border: 2px solid white; */
 }
+
+#p_alb{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 #dur{
-    width: 17%;
+    width: 12%;
     height: 100%;
     display: flex;
-    justify-content: end;
+    /* justify-content: end; */
     align-items: center;
     font-size: 0.8rem;
     /* border: 2px solid white; */
@@ -142,8 +167,9 @@ body{
     margin: 6px auto;
     /* margin-bottom: 0px; */
     width: 94%;
-    height: 45px;
+    height: 55px;
     /* border: 2px solid white; */
+    border-radius: 5px;
     color: rgb(178, 172, 172);
     display: flex;
 }
@@ -151,29 +177,51 @@ body{
 #list_singer{
     font-size: 0.7rem;
     color: rgb(178, 172, 172);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #tit_list{
-    width: 65%;
+    width: 75%;
     height: 100%;
     display: flex;
     flex-direction: column;
     /* align-items: center; */
     justify-content: space-evenly;
     color: white;
+    padding-right: 10px;
+    box-sizing: border-box;
     /* border: 2px solid white; */
 }
 
-main{
+#playlist_page{
     /* height: 100vh; */
+    background-color: #121212;
     margin-left: 216px;
     padding-bottom: 120px;
     width: calc(100% - 216px);
     padding-top: 60px;
     /* border: 2px solid black; */
     box-sizing: border-box;
+    position: absolute;
+    top: 0px;
+    left: 100vw;
+    z-index: -2;
+    /* display: none; */
     /* border: 2px solid white; */
     /* background-image: linear-gradient(green, black); */
+}
+
+#nav_controls{
+    height: 28px;
+    position: absolute;
+    top: 10px;
+    left: 15px;
+}
+
+#back_btn{
+    height: 100%;
 }
 
 

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <main id="lib_page">
+
+    <h2 id="greeting">Library</h2>
+    <section id="lib_grid">
+      <div class="lib_card" id="liked_card">
+        <img src="icon.png" alt="" class="liked_cardicon">
+        <div id="liked_list"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, doloribus unde saepe dignissimos aperiam quam, minima qui, ea possimus eum magni soluta molestiae. Ducimus, vitae non laborum perferendis maiores voluptates?</p></div>
+        <div class="liked_card_body">
+            <h4 class="liked_cardHeading">Liked Songs</h4>
+            <p class="liked_card_text">50 liked Songs</p>
+        </div>
+    </div>
+      <div class="lib_card">
+        <img src="" class="lib_card_img_top">
+        <img src="icon.png" alt="" class="lib_cardicon" id="lib_cardicon1">
+        <div class="lib_card_body">
+            <h4 class="lib_cardHeading">abcd</h4>
+            <p class="lib_card_text">wsedcsd ecfeasasasasas dfcds ecedwcwa</p>
+        </div>
+    </div>
+    </section>
+</main>
+
+
+<main id="playlist_page" style="display: none;">
+    <div id="nav_controls">
+        <img src="/back.png" id="back_btn">
+    </div>
+    <div id="background"></div>
+    <section id="info">
+        <img src="" id="topimg">
+        <div id="album_info">
+            <p id="album"></p>
+            <h1 id="album_head"></h1>
+            <div id="small_det">
+                <p id="album_det"><span id="artist_name"></span> &middot; <span id="year"></span> &middot; <span
+                        id="num"></span></p>
+                <!-- <p id="playlist_des"></p> -->
+            </div>
+        </div>
+    </section>
+
+    <section id="list">
+        <div id="list_head">
+            <div id="nu">#</div>
+            <div id="tit">TITLE</div>
+            <!-- <div id="alb">ALBUM</div> -->
+            <div id="dur">DURATION</div>
+        </div>
+
+        <div style="margin-top: 20px;" id="list_cont">
+        </div>
+
+    </section>
+</main>
+
+<main id="album_page" style="display: none;">
+    <div id="nav_controls">
+        <img src="/back.png" id="back_btn">
+    </div>
+    <div id="background"></div>
+    <section id="info">
+        <img src="" id="topimg">
+        <div id="album_info">
+            <p id="album"></p>
+            <h1 id="album_head"></h1>
+            <div id="small_det">
+                <p id="playlist_des"></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="list">
+        <div id="list_head">
+            <div id="nu">#</div>
+            <div id="tit1">TITLE</div>
+            <div id="alb">ALBUM</div>
+            <div id="dur">DURATION</div>
+        </div>
+
+        <div style="margin-top: 20px;" id="list_cont">
+        </div>
+    </section>
+</main>
+
+
+
+
+
+
+        <aside>
+          <div class="spotify-icons"><img
+                  src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_RGB_White.png"></div>
+          <ul>
+              <li class="aside-list-items" id="home_btn"><img src="/home.png" alt="home"><span>Home</span></li>
+              <li class="aside-list-items" style="position: relative;"><img src="/search.png" alt="home" height=7% width="15%"><span id="ser_span">Search</span>
+                  <div class="searchbar"> 
+                      <!-- <input type = "text" placeholder="Search" name="search" id="search" class="def">   -->
+                      <!-- <button>Search</button> -->
+                  </div>
+              </li>
+              <li class="aside-list-items"><img src="/lib.png" alt="home" height=7% width="15%"><span> Your Library</span></li>
+          </ul>
+          <ul style="margin-top: 35px;" id="ul_bot">
+              <li class="aside-list-items"><img src="/create.png" alt="home" height=7% width="15%"><span>Create
+                      Playlist</span></li>
+              <li class="aside-list-items" id="like_btn"><img src="/liked.png" alt="home" height=7% width="15%"><span>Liked Songs</span>
+              </li>
+          </ul>
+      </aside>
+</body>
+</html>

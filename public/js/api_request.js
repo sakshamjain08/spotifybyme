@@ -7,6 +7,9 @@ let uriarr_top = JSON.parse(localStorage.getItem('uriArrayTop'));
 let uriarr_top_by = JSON.parse(localStorage.getItem('uriArrayTopBy'));
 let uriarr_artist = JSON.parse(localStorage.getItem('uriArrayArtist'));
 let uriarr_like = JSON.parse(localStorage.getItem('uriArrayLike'));
+let uriarr_playlist = JSON.parse(localStorage.getItem('uriArrayPlaylist'));
+// let uriarr_user_playlist = JSON.parse(localStorage.getItem('uriArrayUserPlaylist'));
+
 
 
 $.ajax({
@@ -87,7 +90,7 @@ $.ajax({
 
 
 $.ajax({
-    url: 'https://api.spotify.com/v1/browse/featured-playlists?country=IN&locale=hi_IN',
+    url: 'https://api.spotify.com/v1/browse/featured-playlists?country=IN&locale=pa_IN',
     headers: {
         'Authorization': 'Bearer ' + token,
         'Content-Type': 'application/json'
@@ -98,6 +101,7 @@ $.ajax({
         let num = Math.floor(Math.random()*size);
 
         let data = [];
+        let arr = [];
 
         for(let i=num; i<(num+6); i++){
             let n = i%size;
@@ -111,10 +115,14 @@ $.ajax({
             const heading = document.querySelector(`#featured #card${count+1} h4`);
             const des = document.querySelector(`#featured #card${count+1} p`);
             im.setAttribute('src', data[count].images[0].url);
+            arr.push(data[count].uri);
             heading.innerText = data[count].name;
             des.innerText = data[count].description;
             count++;
         }
+
+        localStorage.setItem('uriArrayPlaylist', JSON.stringify(arr));
+        uriarr_playlist = JSON.parse(localStorage.getItem('uriArrayPlaylist'));
     }
 });
 

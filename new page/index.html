@@ -15,42 +15,51 @@
         <script src="jQuery.js"></script>
 </head>
 
-<body>
+<body>        
+        <main id="playlist_page" style="display: block; left: 0px;">
 
-        <div id="background"></div>
+                <div id="background" style="background-image: linear-gradient(rgb(132, 113, 103), 50%, rgb(18, 18, 18));"></div>
+                <section id="info">
+                        <img src="https://i.scdn.co/image/ab67616d0000b2732f8aea22b8e62bd6084e7094" id="topimg">
+                        <div id="album_info" style="left: 215.5px; visibility: visible;">
+                                <p id="album">ALBUM</p>
+                                <h1 id="album_head">No Competition</h1>
+                                <div id="small_det">
+                                        <p id="playlist_des" style="display: inline-block;">abcd</p>
+                                </div>
+                        </div>
+                </section>
         
-        <main>
-        <section id="info">
-                <img src="pic.png" id="topimg">
-                <div id="album_info">
-                        <p id="album">ALBUM</p>
-                        <h1 id="album_head">Moosetape</h1>
-                        <div id="small_det">
-                                <p id="album_det">Sidhu Moose Wala &middot; 2021 &middot; 32 songs, <span id="muted"> 1 hr 37 min </span></p>
+                <section id="list">
+                        <div id="list_head">
+                                <div id="nu">#</div>
+                                <div id="tit">TITLE</div>
+                                <div id="alb">ALBUM</div>
+                                <div id="dur">DURATION</div>
                         </div>
-                </div>
-        </section>
-
-        <section id="list">
-                <div id="list_head">
-                        <div id="nu">#</div>
-                        <div id="tit">TITLE</div>
-                        <div id="plays">PLAYS</div>
-                        <div id="dur">DURATION</div>
-                </div>
-
-                <div id="list_con">
-                        <div id="nu">1</div>
-                        <div id="tit_list">
-                                <h4>Moosetape (intro)</h4>
-                                <p id="list_singer">Sidhu Moose Wala</p>
-                        </div>
-                        <div id="plays">1,615,788</div>
-                        <div id="dur">1:32</div>
-                </div>
-
-        </section>
-    </main>
+        
+                        <div style="margin-top: 20px;" id="list_cont">
+                                <div id="list_con" style="cursor: pointer;">
+                                        <div id="nu">1</div>
+                                        <div id="tit_list">
+                                                <h4>No Competition</h4>
+                                                <p id="list_singer">Jass Manak, DIVINE</p>
+                                        </div>
+                                        <div id="alb"><p id="p_alb">abcdadscxsdacbjhdsb jhdsbcjhcvdjhsgvchgsdcvhnsdvchvsdvc</p></div>
+                                        <div id="dur">3:26</div>
+                                </div>
+                                <div id="list_con" style="cursor: pointer;">
+                                        <div id="nu">2</div>
+                                        <div id="tit_list">
+                                                <h4>Yaara Tere Warga</h4>
+                                                <p id="list_singer">Jass Manak, Sunidhi Chauhan</p>
+                                        </div>
+                                        <div id="alb">abcd</div>
+                                        <div id="dur">3:07</div>
+                                </div>
+        
+                </section>
+            </main>
 
     <aside>
         <div class="spotify-icons"><img
